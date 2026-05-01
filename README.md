@@ -2,7 +2,7 @@
 
 Modern Windows application for generating secure passwords and performing real-time password strength analysis — fully local, private, and offline.
 
-![App Preview](docs/screenshots/app-preview.png)
+![Analysis](docs/screenshots/image.png)
 
 ![.NET](https://img.shields.io/badge/.NET-9.0-8B5CF6?style=for-the-badge&logo=dotnet)
 ![Platform](https://img.shields.io/badge/Platform-Windows-22D3EE?style=for-the-badge&logo=windows)
