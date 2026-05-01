@@ -9,6 +9,12 @@ Modern Windows application for generating secure passwords and performing real-t
 ![Security](https://img.shields.io/badge/Security-Local%20Only-34D399?style=for-the-badge)
 
 ---
+## ⬇️ Download
+
+Download the latest version here:  
+👉 https://github.com/PedroXCode/ZaldrionPasswordIntelligence/releases
+
+---
 
 ## 📦 Version
 
