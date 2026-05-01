@@ -1,0 +1,321 @@
+<Window x:Class="ZaldrionPasswordIntelligence.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Zaldrion Password Intelligence"
+        Height="780"
+        Width="1180"
+        MinHeight="720"
+        MinWidth="1060"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="#FFFFFF"
+        Icon="/Assets/zaldrion.ico">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    CornerRadius="28"
+                    Padding="26"
+                    BorderThickness="1"
+                    BorderBrush="#322A63">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#1B1235" Offset="0" />
+                        <GradientStop Color="#101027" Offset="0.48" />
+                        <GradientStop Color="#062A32" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Zaldrion Password Intelligence"
+                                   FontSize="34"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF" />
+
+                        <TextBlock Text="Generador seguro + análisis de fuerza, entropía, patrones débiles y tiempo estimado de cracking."
+                                   Margin="0,8,0,0"
+                                   Foreground="#D8B4FE"
+                                   FontSize="15" />
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                            Background="#1C1B37"
+                            BorderBrush="#4338CA"
+                            BorderThickness="1"
+                            CornerRadius="18"
+                            Padding="16,10"
+                            VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="10" Height="10" Fill="{StaticResource SuccessBrush}" Margin="0,0,9,0" />
+
+                            <TextBlock Text="Local · Sin internet · Sin guardar en disco"
+                                       Foreground="#E0E7FF"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="0,24,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- CREAR CONTRASEÑA -->
+                <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource CardStyle}" Margin="0,0,14,14">
+                    <StackPanel>
+                        <TextBlock Text="Crear contraseña"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF" />
+
+                        <TextBlock Text="Usa aleatoriedad criptográfica y mezcla los grupos seleccionados."
+                                   Foreground="#C4B5FD"
+                                   Margin="0,6,0,18" />
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Largo"
+                                       FontWeight="SemiBold"
+                                       FontSize="15"
+                                       Foreground="#FFFFFF" />
+
+                            <TextBlock x:Name="LengthValueText"
+                                       Grid.Column="1"
+                                       Text="18 caracteres"
+                                       Foreground="#22D3EE"
+                                       FontWeight="Bold" />
+                        </Grid>
+
+                        <Slider x:Name="LengthSlider"
+                                Minimum="8"
+                                Maximum="64"
+                                Value="18"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                ValueChanged="LengthSlider_ValueChanged" />
+
+                        <UniformGrid Columns="2" Margin="0,18,0,12">
+                            <CheckBox x:Name="UppercaseCheckBox" Content="Mayúsculas A-Z" IsChecked="True" Foreground="#FFFFFF" />
+                            <CheckBox x:Name="LowercaseCheckBox" Content="Minúsculas a-z" IsChecked="True" Foreground="#FFFFFF" />
+                            <CheckBox x:Name="NumbersCheckBox" Content="Números 0-9" IsChecked="True" Foreground="#FFFFFF" />
+                            <CheckBox x:Name="SymbolsCheckBox" Content="Símbolos seguros" IsChecked="True" Foreground="#FFFFFF" />
+                            <CheckBox x:Name="AvoidAmbiguousCheckBox" Content="Evitar caracteres confusos" IsChecked="True" Foreground="#FFFFFF" />
+                            <CheckBox x:Name="AutoCopyCheckBox" Content="Copiar al generar" Foreground="#FFFFFF" />
+                        </UniformGrid>
+
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="GeneratedPasswordTextBox"
+                                     FontFamily="Cascadia Mono, Consolas"
+                                     FontSize="17"
+                                     IsReadOnly="True"
+                                     VerticalContentAlignment="Center"
+                                     MinHeight="48"
+                                     Foreground="#FFFFFF"
+                                     Background="#0E0E1C"
+                                     BorderBrush="#4C1D95"
+                                     SelectionBrush="#8B5CF6" />
+
+                            <Button Grid.Column="1"
+                                    Content="Copiar"
+                                    Style="{StaticResource GhostButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    Click="CopyButton_Click" />
+
+                            <Button Grid.Column="2"
+                                    Content="Generar"
+                                    Style="{StaticResource ModernButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    Click="GenerateButton_Click" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ANÁLISIS -->
+                <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource CardStyle}" Margin="14,0,0,14">
+                    <StackPanel>
+                        <TextBlock Text="Análisis inteligente"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF" />
+
+                        <TextBlock Text="Pega una contraseña o genera una para ver el diagnóstico."
+                                   Foreground="#C4B5FD"
+                                   Margin="0,6,0,18" />
+
+                        <PasswordBox x:Name="ManualPasswordBox"
+                                     MinHeight="48"
+                                     Foreground="#FFFFFF"
+                                     Background="#0E0E1C"
+                                     BorderBrush="#38BDF8"
+                                     PasswordChanged="ManualPasswordBox_PasswordChanged" />
+
+                        <Button Content="Analizar contraseña escrita"
+                                Style="{StaticResource GhostButtonStyle}"
+                                Margin="0,12,0,18"
+                                Click="AnalyzeManualButton_Click" />
+
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="StrengthLabelText"
+                                       Text="Fuerza"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="#FFFFFF" />
+
+                            <TextBlock x:Name="ScoreText"
+                                       Grid.Column="1"
+                                       Text="0/100"
+                                       Foreground="#E0E7FF"
+                                       FontWeight="Bold" />
+                        </Grid>
+
+                        <ProgressBar x:Name="ScoreBar"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Value="0"
+                                     Foreground="#8B5CF6"
+                                     Background="#1E1B4B" />
+
+                        <UniformGrid Columns="2" Margin="0,18,0,8">
+                            <Border Background="{StaticResource SurfaceAltBrush}" CornerRadius="16" Padding="14" Margin="0,0,8,8">
+                                <StackPanel>
+                                    <TextBlock Text="Entropía" Foreground="#C4B5FD" />
+                                    <TextBlock x:Name="EntropyText"
+                                               Text="0 bits"
+                                               FontSize="19"
+                                               FontWeight="Bold"
+                                               Foreground="#FFFFFF"
+                                               Margin="0,4,0,0" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="{StaticResource SurfaceAltBrush}" CornerRadius="16" Padding="14" Margin="8,0,0,8">
+                                <StackPanel>
+                                    <TextBlock Text="Cracking estimado" Foreground="#C4B5FD" />
+                                    <TextBlock x:Name="CrackTimeText"
+                                               Text="—"
+                                               FontSize="19"
+                                               FontWeight="Bold"
+                                               Foreground="#FFFFFF"
+                                               Margin="0,4,0,0"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+
+                        <TextBlock x:Name="CharacterSetText"
+                                   Text="Caracteres detectados: —"
+                                   Foreground="#C4B5FD"
+                                   Margin="0,8,0,10" />
+
+                        <TextBlock Text="Hallazgos"
+                                   FontWeight="SemiBold"
+                                   Foreground="#FFFFFF"
+                                   Margin="0,8,0,8" />
+
+                        <ListBox x:Name="FindingsList"
+                                 Background="#0E0E1C"
+                                 BorderBrush="#342A63"
+                                 Foreground="#E0E7FF"
+                                 MinHeight="120"
+                                 MaxHeight="170" />
+                    </StackPanel>
+                </Border>
+
+                <!-- HISTORIAL -->
+                <Border Grid.Column="0" Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,14,14,0">
+                    <StackPanel>
+                        <TextBlock Text="Historial de esta sesión"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF" />
+
+                        <TextBlock Text="Solo vive mientras la app está abierta. No se guarda automáticamente."
+                                   Foreground="#C4B5FD"
+                                   Margin="0,6,0,14" />
+
+                        <ListBox x:Name="HistoryList"
+                                 Background="#0E0E1C"
+                                 BorderBrush="#342A63"
+                                 Foreground="#FFFFFF"
+                                 FontFamily="Cascadia Mono, Consolas"
+                                 MinHeight="150" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+                            <Button Content="Exportar .txt"
+                                    Style="{StaticResource GhostButtonStyle}"
+                                    Margin="0,0,10,0"
+                                    Click="ExportButton_Click" />
+
+                            <Button Content="Limpiar"
+                                    Style="{StaticResource GhostButtonStyle}"
+                                    Click="ClearHistoryButton_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- CONSEJOS -->
+                <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource CardStyle}" Margin="14,14,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Consejos rápidos"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="#FFFFFF" />
+
+                        <TextBlock Foreground="#E0E7FF"
+                                   Margin="0,10,0,0"
+                                   TextWrapping="Wrap">
+                            • Usa 16+ caracteres cuando puedas.&#x0a;
+                            • Evita nombres, fechas, equipos, apodos o palabras comunes.&#x0a;
+                            • Una contraseña fuerte no debe reutilizarse en varias cuentas.&#x0a;
+                            • Para cuentas reales, combina esto con un password manager y MFA.
+                        </TextBlock>
+
+                        <Border Background="#101B2C"
+                                BorderBrush="#164E63"
+                                BorderThickness="1"
+                                CornerRadius="16"
+                                Padding="14"
+                                Margin="0,18,0,0">
+                            <TextBlock Text="Nota: el tiempo de cracking es una estimación educativa basada en ataques offline de alta velocidad. No garantiza seguridad absoluta."
+                                       Foreground="#BAE6FD"
+                                       TextWrapping="Wrap" />
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Window>
